@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="기본">
+      <UniqueIdentifier>{7cae8923-c132-49a9-8a31-3cd40c06920b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="기본\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="기본\소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="기본\리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="키움">
+      <UniqueIdentifier>{c8e072f2-6802-4c38-bfdb-5ea084463901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Defines">
+      <UniqueIdentifier>{6c6ca2e2-7eab-483f-842c-ec921120ba18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="키움\EX">
+      <UniqueIdentifier>{969ba1db-67d8-42a5-92ee-99200e99075a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BrokerKW.h">
+      <Filter>기본\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokerKWDlg.h">
+      <Filter>기본\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>기본\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>기본\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>기본\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>기본\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CKHOpenAPI.h">
+      <Filter>키움</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defines\ConfigDef.h">
+      <Filter>Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defines\DataDef.h">
+      <Filter>Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defines\KHStruct.h">
+      <Filter>Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defines\NetworkDef.h">
+      <Filter>Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defines\StockDef.h">
+      <Filter>Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="CKHOpenAPIHelper.h">
+      <Filter>키움\EX</Filter>
+    </ClInclude>
+    <ClInclude Include="KHOpenAPIDef.h">
+      <Filter>키움</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BrokerKW.cpp">
+      <Filter>기본\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokerKWDlg.cpp">
+      <Filter>기본\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>기본\소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CKHOpenAPIHandler.cpp">
+      <Filter>키움</Filter>
+    </ClCompile>
+    <ClCompile Include="CKHOpenAPI.cpp">
+      <Filter>키움</Filter>
+    </ClCompile>
+    <ClCompile Include="CKHOpenAPIFuncs.cpp">
+      <Filter>키움</Filter>
+    </ClCompile>
+    <ClCompile Include="CKHOpenAPICombine.cpp">
+      <Filter>키움\EX</Filter>
+    </ClCompile>
+    <ClCompile Include="CKHOpenAPIFill.cpp">
+      <Filter>키움\EX</Filter>
+    </ClCompile>
+    <ClCompile Include="CKHOpenAPIHelper.cpp">
+      <Filter>키움\EX</Filter>
+    </ClCompile>
+    <ClCompile Include="CKHOpenAPISplitter.cpp">
+      <Filter>키움\EX</Filter>
+    </ClCompile>
+    <ClCompile Include="CKHOpenAPIValidateField.cpp">
+      <Filter>키움\EX</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+    <None Include="res\BrokerKW.rc2">
+      <Filter>기본\리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\BrokerKW.ico">
+      <Filter>기본\리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BrokerKW.rc">
+      <Filter>기본\리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

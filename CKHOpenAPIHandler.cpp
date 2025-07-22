@@ -329,12 +329,12 @@ void C_KH_OPEN_API::OnEventConnect(long _nErrCode)
 				// 전송한다.
 				ipcConnectPacket.nDataIndex = _PKT_IDX_LOGIN_SUCCESS_;
 				ipcConnectPacket.nDataSize = sizeof(_LOGIN_INFO_KW);
-				ZeroMemory(ipcConnectPacket.bytBuffer, sizeof(_STOCK_INFO));	// 버퍼를 초기화
+				ZeroMemory(ipcConnectPacket.bytBuffer, sizeof(_STOCK_INFO_PKT));	// 버퍼를 초기화
 				this->set_login_packet(ipcConnectPacket);
 				this->pPipe->Send(&ipcConnectPacket);
 			}
 			//WORD nUseScreenCount = 0;
-			//struct _STOCK_INFO
+			//struct _STOCK_INFO_PKT
 			//	: public _CODE
 			//	, public _STOCK_NAME
 			//{
@@ -352,7 +352,7 @@ void C_KH_OPEN_API::OnEventConnect(long _nErrCode)
 			//	LONGLONG nListedStocks{ 0 };		// 상장주식수
 			//	ULONGLONG nMarketCapTotal{ 0 };		// 시가총액
 			//};
-			std::unordered_map<std::wstring, _STOCK_INFO> umapStockInfo;	// 종목정보 벡터
+			std::unordered_map<std::wstring, _STOCK_INFO_PKT> umapStockInfo;	// 종목정보 벡터
 			umapStockInfo.reserve(4000);				// 많아봐야 4000개 정도이므로 미리 예약해둔다.
 			{	// 코스피 필터링
 				std::vector<std::wstring> vKospiCodes;
@@ -375,10 +375,10 @@ void C_KH_OPEN_API::OnEventConnect(long _nErrCode)
 					this->vFilteredCodes.push_back(code);
 
 					umapStockInfo.try_emplace(code);
-					_STOCK_INFO& stockInfo = umapStockInfo[code];	// 마지막에 추가된 빈 구조체를 참조
+					_STOCK_INFO_PKT& stockInfo = umapStockInfo[code];	// 마지막에 추가된 빈 구조체를 참조
 					stockInfo.code = code;	// 종목코드
 					stockInfo.name = name;
-					stockInfo.nMarketKind = nMarketKind;	// 시장구분
+					stockInfo.nMarketKind = static_cast<BYTE>(nMarketKind);	// 시장구분
 					if (state.find(L"담보대출")) { stockInfo.담보대출 = true; }	// 담보대출 여부
 					if (state.find(L"신용가능")) { stockInfo.신용가능 = true; }	// 신용가능 여부
 					stockInfo.증거금 = (WORD)::_wtoi(state.c_str());
@@ -407,10 +407,10 @@ void C_KH_OPEN_API::OnEventConnect(long _nErrCode)
 					this->vFilteredCodes.push_back(code);
 
 					umapStockInfo.try_emplace(code);
-					_STOCK_INFO& stockInfo = umapStockInfo[code];	// 마지막에 추가된 빈 구조체를 참조
+					_STOCK_INFO_PKT& stockInfo = umapStockInfo[code];	// 마지막에 추가된 빈 구조체를 참조
 					stockInfo.code = code;	// 종목코드
 					stockInfo.name = name;
-					stockInfo.nMarketKind = nMarketKind;	// 시장구분
+					stockInfo.nMarketKind = static_cast<BYTE>(nMarketKind);	// 시장구분
 					if (state.find(L"담보대출")) { stockInfo.담보대출 = true; }	// 담보대출 여부
 					if (state.find(L"신용가능")) { stockInfo.신용가능 = true; }	// 신용가능 여부
 					stockInfo.증거금 = (WORD)::_wtoi(state.c_str());
@@ -438,7 +438,7 @@ void C_KH_OPEN_API::OnEventConnect(long _nErrCode)
 				// 종목 개수를 보낸다
 				ipcConnectPacket.nDataIndex = _PKT_IDX_RESULT_STOCK_COUNT_KIWOOM_;
 				ipcConnectPacket.nDataSize = sizeof(DWORD);
-				ZeroMemory(ipcConnectPacket.bytBuffer, sizeof(_STOCK_INFO));	// 버퍼를 초기화
+				ZeroMemory(ipcConnectPacket.bytBuffer, sizeof(_STOCK_INFO_PKT));	// 버퍼를 초기화
 
 				const DWORD nCount = static_cast<DWORD>(umapStockInfo.size());	// 필터링된 종목 개수
 				::memcpy(ipcConnectPacket.bytBuffer, &nCount, sizeof(DWORD));	// 필터링된 종목 개수를 복사한다.
@@ -447,7 +447,7 @@ void C_KH_OPEN_API::OnEventConnect(long _nErrCode)
 			{
 				// 필터링된 종목정보를 전송한다.
 				ipcConnectPacket.nDataIndex = _PKT_IDX_STOCK_INFO_KIWOOM_;
-				ipcConnectPacket.nDataSize = sizeof(_STOCK_INFO);
+				ipcConnectPacket.nDataSize = sizeof(_STOCK_INFO_PKT);
 				// umapStockInfo 에서
 				//const size_t nStockCount = umapStockInfo.size();	// 종목 개수
 				//size_t nSendCount = 0;	// 전송한 종목 개수
@@ -455,9 +455,9 @@ void C_KH_OPEN_API::OnEventConnect(long _nErrCode)
 				{	// 종목코드를 순회하면서
 					const std::wstring& code = pair.first;	// 종목코드
 					
-					_STOCK_INFO& stockInfo = umapStockInfo[code];	// 종목정보를 참조
-					ZeroMemory(ipcConnectPacket.bytBuffer, sizeof(_STOCK_INFO));	// 버퍼를 초기화
-					::memcpy(ipcConnectPacket.bytBuffer, &stockInfo, sizeof(_STOCK_INFO));	// 종목정보를 복사한다.
+					_STOCK_INFO_PKT& stockInfo = umapStockInfo[code];	// 종목정보를 참조
+					ZeroMemory(ipcConnectPacket.bytBuffer, sizeof(_STOCK_INFO_PKT));	// 버퍼를 초기화
+					::memcpy(ipcConnectPacket.bytBuffer, &stockInfo, sizeof(_STOCK_INFO_PKT));	// 종목정보를 복사한다.
 					this->pPipe->Send(&ipcConnectPacket);
 					//DBGPRINT(L"전송 %d/%d: %s, %s", ++nSendCount, nStockCount, stockInfo.code.c_str(), stockInfo.name.c_str());
 				}
